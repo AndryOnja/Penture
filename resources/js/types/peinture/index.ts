@@ -8,13 +8,14 @@ export interface Category {
 
 export interface Ingredient {
     id: number;
-    category_id: string;
+    category_id: string ;
     name: string;
     description?: string;
     density?: number;
     unit?: string;
     created_at: string;
     updated_at: string;
+    category:Category
 }
 
 export interface PaintType {

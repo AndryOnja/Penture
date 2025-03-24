@@ -11,7 +11,7 @@ class IngredientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class IngredientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_id' => 'required|integer',
+            'name' => 'required|string|min:3',
+            'description' => 'nullable',
+            'density' => 'nullable',
+            'unit' => 'nullable'
         ];
     }
 }

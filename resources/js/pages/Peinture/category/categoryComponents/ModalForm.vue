@@ -22,10 +22,21 @@ const props = defineProps<{
     data?: Category
 }>()
 
-const modal = ref(true)
+const modal = ref(false)
+
+const resetForm = () => {
+  form.name = props.data?.name ?? ''
+  form.description = props.data?.description ?? ''
+}
 
 const showModal = () => {
+    resetForm()
     modal.value = true
+}
+
+const closeModal = () => {
+  modal.value = false
+  form.reset()
 }
 
 const form = useForm({
@@ -34,15 +45,17 @@ const form = useForm({
 })
 
 const createCategory = () => {
-    form.post(route('categories.store'))
-    form.reset()
-    modal.value = false
+    form.post(route('categories.store'), {
+        onSuccess: () => closeModal(),
+        onError: (errors: any) => console.log(errors)
+    })
 }
 
 const updateCategory = () => {
-    form.put(route('categories.update', props.data?.id))
-    form.reset()
-    modal.value = false
+    form.put(route('categories.update', props.data?.id), {
+        onSuccess: () => closeModal(),
+        onError: (errors: any) => console.log(errors)
+    })
 }
 
 const submitForm = () => {

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Peinture;
 
-use App\Models\Peinture\Ingredient;
+use App\Http\Requests\Peinture\IngredientRequest;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
+use App\Models\Peinture\Category;
+use App\Models\Peinture\Ingredient;
 use App\Http\Controllers\Controller;
 
 class IngredientController extends Controller
@@ -14,49 +15,29 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Peinture/category/Index', [
-            'categories' => Ingredient::with('category')->get()
+        return Inertia::render('Peinture/ingredient/Index', [
+            'ingredients' => Ingredient::with('category')->get(),
+            'categories' => Category::all(['id', 'name'])
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(IngredientRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        Ingredient::create($request->validated());
+        return redirect()->back()->with('success', 'Ingrédient ajouté!');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(IngredientRequest $request, string $id)
     {
-        //
+        $ingredient = Ingredient::findOrFail($id);
+        $ingredient->update($request->validated());
+        return redirect()->back()->with('success', 'Ingrédient modifié!');
     }
 
     /**
@@ -64,6 +45,7 @@ class IngredientController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        (Ingredient::findOrFail($id))->delete();
+        return redirect()->back()->with('success', 'Ingrédient supprimé!');
     }
 }

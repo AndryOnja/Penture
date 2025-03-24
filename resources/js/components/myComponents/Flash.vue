@@ -19,7 +19,7 @@ const hideFlash = () => {
 const TimeHideFlash = () => {
     setTimeout(() => {
         hideFlash()
-    }, 20000);
+    }, 10000);
 }
 
 watch(() => [message.value.error, message.value.success], ([newError, newSuccess]) => {
