@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Peinture\CategoryController;
 use App\Http\Controllers\Peinture\IngredientController;
+use App\Http\Controllers\Peinture\PaintTypeController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -16,6 +17,7 @@ Route::get('dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('/categories', CategoryController::class)->except(['create', 'edit', 'show']);
     Route::resource('/ingredients', IngredientController::class)->except(['create', 'edit', 'show']);
+    Route::resource('/paintTypes', PaintTypeController::class)->except(['create', 'edit', 'show']);
 });
 
 require __DIR__.'/settings.php';

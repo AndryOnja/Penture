@@ -45,7 +45,11 @@ class IngredientController extends Controller
      */
     public function destroy(string $id)
     {
-        (Ingredient::findOrFail($id))->delete();
+        $ingredient = Ingredient::findOrFail($id);
+        if ($ingredient->formulas()->count() > 0) {
+            session()->flash('error', 'Impossible de supprimer cet ingrédient car elle est utilisée par des formules.');
+            return;
+        }
         return redirect()->back()->with('success', 'Ingrédient supprimé!');
     }
 }

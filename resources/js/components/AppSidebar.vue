@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { LayoutGrid, ChartColumnStacked, TestTube2 } from 'lucide-vue-next';
+import { LayoutGrid, ChartColumnStacked, TestTube2, PaintBucket } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -23,6 +23,11 @@ const mainNavItems: NavItem[] = [
         title: 'Ingredient (peinture)',
         href: '/ingredients',
         icon: TestTube2,
+    },
+    {
+        title: 'Peinture type',
+        href: '/paintTypes',
+        icon: PaintBucket,
     },
 ];
 
